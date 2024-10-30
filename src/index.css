@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .badge-animate {
+    @apply transition-colors duration-200;
+  }
+  
+  .progress-bar {
+    @apply relative overflow-hidden;
+  }
+  
+  .progress-bar::after {
+    content: '';
+    @apply absolute inset-0 bg-white/20;
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+.tremor-Card {
+  @apply card-hover;
+}
+
+.tremor-Badge {
+  @apply badge-animate;
+}
+
+.tremor-ProgressBar {
+  @apply progress-bar;
+}
