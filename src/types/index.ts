@@ -7,8 +7,11 @@ export interface Project {
   used_budget: number;
   start_date: string;
   end_date: string;
-  status: 'active' | 'completed';
+  status: 'draft' | 'active' | 'completed';
   created_at: string;
+  manager?: string;
+  announcement_number?: string;
+  max_bid_amount?: number;
 }
 
 export interface ProjectBudget {
@@ -20,6 +23,8 @@ export interface ProjectBudget {
   balance_budget: number;
   used_advance: number;
   used_balance: number;
+  advance_payment: number;
+  balance_payment: number;
 }
 
 export interface Budget {
@@ -39,10 +44,30 @@ export interface BudgetAlert {
 export interface PO {
   id: number;
   project_id: number;
-  project_name?: string;
+  project_name: string;
   po_number: string;
   supplier: string;
   amount: number;
+  payment_type: 'advance' | 'balance';
   status: 'pending' | 'approved' | 'rejected';
   created_at: string;
+  tax_invoice_date?: string;
+  payment_due_date?: string;
+  description?: string;
+  detailed_memo?: string;
+  category?: string;
+  advance_rate?: number;
+  contract_file?: string;
+  estimate_file?: string;
+  business_cert_file?: string;
+  bank_file?: string;
+}
+
+export interface ProjectDraft {
+  manager: string;
+  announcement_number: string;
+  max_bid_amount: number;
+  start_date: string;
+  end_date: string;
+  status: 'draft' | 'active' | 'completed';
 }

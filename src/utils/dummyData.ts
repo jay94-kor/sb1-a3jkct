@@ -1,4 +1,4 @@
-import { Project, PO, Budget, BudgetAlert } from '../types';
+import { Project, Budget, BudgetAlert } from '../types';
 
 export const dummyProjects: Project[] = [
   {
@@ -27,13 +27,7 @@ export const dummyProjects: Project[] = [
   }
 ];
 
-export const dummyPOs: { 
-  data: PO[]; 
-  pagination: { 
-    current: number; 
-    total: number; 
-  }; 
-} = {
+export const dummyPOs = {
   data: [
     {
       id: 1,
@@ -42,8 +36,11 @@ export const dummyPOs: {
       po_number: "PO-2024-001",
       supplier: "클라우드서비스(주)",
       amount: 50000000,
-      status: "approved",
-      created_at: "2024-01-15"
+      payment_type: 'advance' as const,
+      status: "approved" as const,
+      created_at: "2024-01-15",
+      tax_invoice_date: "2024-01-20",
+      payment_due_date: "2024-02-20"
     },
     {
       id: 2,
@@ -52,7 +49,8 @@ export const dummyPOs: {
       po_number: "PO-2024-002",
       supplier: "컨설팅코리아",
       amount: 30000000,
-      status: "pending",
+      payment_type: 'balance' as const,
+      status: "pending" as const,
       created_at: "2024-02-01"
     }
   ],

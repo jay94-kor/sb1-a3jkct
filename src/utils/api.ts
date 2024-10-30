@@ -32,6 +32,25 @@ export const projectAPI = {
     return data;
   },
   
+  getDrafts: async (): Promise<Project[]> => {
+    if (isDevelopment) {
+      return mockAPIResponse(dummyProjects.filter(p => p.status === 'draft'));
+    }
+    const { data } = await api.get('/projects/drafts');
+    return data;
+  },
+  
+  activate: async (id: number): Promise<Project> => {
+    if (isDevelopment) {
+      return mockAPIResponse({
+        ...dummyProjects.find(p => p.project_id === id)!,
+        status: 'active'
+      });
+    }
+    const { data } = await api.post(`/projects/${id}/activate`);
+    return data;
+  },
+  
   getById: async (id: number): Promise<Project> => {
     const { data } = await api.get(`/projects/${id}`);
     return data;
