@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
@@ -13,6 +13,12 @@ const queryClient = new QueryClient({
   },
 });
 
+// 동적 임포트로 변경
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const ProjectManagement = lazy(() => import('./pages/ProjectManagement'));
+const POManagement = lazy(() => import('./pages/POManagement'));
+const BudgetManagement = lazy(() => import('./pages/BudgetManagement'));
+
 function App() {
   return (
     <ErrorBoundary>
@@ -20,7 +26,12 @@ function App() {
         <BrowserRouter>
           <Layout>
             <Suspense fallback={<LoadingSpinner />}>
-              {/* Routes will be rendered here */}
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/projects" element={<ProjectManagement />} />
+                <Route path="/po" element={<POManagement />} />
+                <Route path="/budget" element={<BudgetManagement />} />
+              </Routes>
             </Suspense>
           </Layout>
         </BrowserRouter>

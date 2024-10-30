@@ -2,6 +2,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Project, Budget, BudgetAlert, PO } from '../types';
 import { projectAPI, budgetAPI, poAPI } from '../utils/api';
+import axios from 'axios';
 
 export const useProjects = () => {
   return useQuery<Project[]>({
@@ -40,7 +41,7 @@ export const usePOs = (page: number) => {
 };
 
 export const useCreateProject = () => {
-  return useMutation<Project, AxiosError, Omit<Project, 'project_id'>>({
+  return useMutation<Project, Error, Omit<Project, "project_id">>({
     mutationFn: async (project) => {
       const response = await projectAPI.create(project);
       return response;
@@ -56,3 +57,12 @@ export const useCreatePO = () => {
     }
   });
 };
+
+export const useUpdatePO = () => {
+  return useMutation<PO, Error, PO>({
+    mutationFn: async (po) => {
+      const response = await axios.put(`/api/pos/${po.id}`, po);
+      return response.data;
+    }
+  });
+};  
